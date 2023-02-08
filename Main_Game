@@ -1,0 +1,108 @@
+# p = PlantMathGame()
+# p.run()
+
+# imports the Pillow Library
+from PIL import Image, ImageDraw
+import random
+
+class PlantMathGame():
+    def __init__(self):
+        print("Welcome to the Math Garden! Get ready to start growing some plants:")
+        plant = input("Would you like to grow a flower, a cactus, or a mushroom? ")
+        plant_list = ["mushroom", "flower", "cactus"]
+        # makes sure that the user input is correct
+        self.plant_type = plant.lower().strip("a ")
+        print(self.plant_type)
+        
+        if self.plant_type not in plant_list:
+            raise ValueError(self.plant_type + " is not a valid plant type")
+        
+        self.plant_name = input("What would you like to name your " + self.plant_type + "? ")
+        
+        print("In order for " + self.plant_name + " to grow, you must answer 3 questions correctly in a row.")
+        
+    def easy_questions(self):
+        # loop will run again if the user wants to retry the level
+        redo = "yes"
+        while redo == "yes":
+            correct = 0
+            for i in range(3):
+                # generates two random numbers
+                random_number1 = random.randint(0,11)
+                random_number2 = random.randint(0,11)
+                # so a random addition question can be generated
+                answer = int(input(str(random_number1) + " + " + str(random_number2) + " = "))
+                # if the user's answer is correct, 1 is added to the correct counter
+                if answer == random_number1 + random_number2:
+                    correct += 1
+            # the user does not replay this level if they got all 3 questions correct
+            if correct == 3:
+                print("Your plant grew!")
+                redo = "no"
+                # shows image of plant
+                myImage = Image.open(self.plant_type + " stage 1.jpg")
+                myImage.show()
+            # and can replay this level if they get one of the questions wrong
+            else:
+                redo = input("Would you like to retry this level? ")
+                
+    def hard_questions(self):
+        # loop will run again if the user wants to retry the level
+        redo = "yes"
+        while redo == "yes":
+            correct = 0
+            for i in range(3):
+                # generates two random numbers
+                random_number1 = random.randint(10,20)
+                random_number2 = random.randint(10,20)
+                # so a random addition question can be generated
+                answer = int(input(str(random_number1) + " * " + str(random_number2) + " = "))
+                # if the user's answer is correct, 1 is added to the correct counter
+                if answer == random_number1 * random_number2:
+                    correct += 1
+            # the user does not replay this level if they got all 3 questions correct
+            if correct == 3:
+                print("Your plant grew!")
+                redo = "no"
+                # shows image of plant
+                myImage = Image.open(self.plant_type + " stage 3.jpg")
+                myImage.show()
+            # and can replay this level if they get one of the questions wrong
+            else:
+                redo = input("Would you like to retry this level? ")
+                
+    def medium_questions(self):
+        # loop will run again if the user wants to retry the level
+        redo = "yes"
+        while redo == "yes":
+            correct = 0
+            for i in range(3):
+                # generates two random numbers
+                random_number1 = random.randint(10,100)
+                random_number2 = random.randint(10,100)
+                # so a random addition question can be generated
+                answer = int(input(str(random_number1) + " - " + str(random_number2) + " = "))
+                # if the user's answer is correct, 1 is added to the correct counter
+                if answer == random_number1 - random_number2:
+                    correct += 1
+            # the user does not replay this level if they got all 3 questions correct
+            if correct == 3:
+                print("Your plant grew!")
+                redo = "no"
+                # shows image of plant
+                myImage = Image.open(self.plant_type + " stage 2.jpg")
+                myImage.show()
+            # and can replay this level if they get one of the questions wrong
+            else:
+                redo = input("Would you like to retry this level? ")
+            
+    # function that runs all of the above functions in order
+    def run(self):
+        print("- - - STAGE 1 - - -")
+        self.easy_questions()
+        print("- - - STAGE 2 - - -")
+        self.medium_questions()
+        print("- - - STAGE 3 - - -")
+        self.hard_questions()
+        # Thank You message
+        print("_.- Thank you for playing, you have become a true gardener! -._")
